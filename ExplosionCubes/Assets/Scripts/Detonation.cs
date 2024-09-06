@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Detonation : MonoBehaviour
 {
     [SerializeField] private float _explosionRadius;
