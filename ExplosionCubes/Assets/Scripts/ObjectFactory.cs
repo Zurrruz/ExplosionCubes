@@ -8,29 +8,18 @@ public class ObjectFactory : MonoBehaviour
     [SerializeField] private int _reducingSize;
     [SerializeField] private int _reducingChanceDecay;
 
-    private void OnEnable()
-    {
-        Detonator.ActionExplosion += GenerateObject;
-    }
-
-    private void OnDisable()
-    {
-        Detonator.ActionExplosion -= GenerateObject;
-    }
-
-    public void GenerateObject(Transform transform, int chanceDecay)
+    public void GenerateObjects(Transform transform, int chanceDecay)
     {
         Detonator detonatorObject;
 
-        int numberObjectCreated = Random.Range(_minNumberCreated, _maxNumberCreated);
+        int numberObjectCreated = Random.Range(_minNumberCreated, _maxNumberCreated + 1);
 
         for (int i = 0; i < numberObjectCreated; i++)
         {
             detonatorObject = Instantiate(_cube, transform.position, Quaternion.identity);
             detonatorObject.transform.localScale = transform.localScale / _reducingSize;
 
-            detonatorObject.SetChance(chanceDecay / _reducingChanceDecay);
-            detonatorObject.Explode();
+            detonatorObject.Initializes(chanceDecay / _reducingChanceDecay);
         }
     }
 }

@@ -1,24 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Detonator : MonoBehaviour
 {
     [SerializeField] private int _chanceDecay;
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
-
-    public static event UnityAction<Transform, int> ActionExplosion;
+    [SerializeField] private RaycastExample _gameManager;
 
     private int _minChance = 0;
     private int _maxChance = 100;
 
-    private void OnMouseUpAsButton()
-    {
-        if (CanAppear())
-            ActionExplosion?.Invoke(transform, _chanceDecay);
-
-        Destroy(gameObject);
-    }
+    public int ChanceDecay => _chanceDecay;
 
     public bool CanAppear()
     {
@@ -27,12 +21,18 @@ public class Detonator : MonoBehaviour
         return chance < _chanceDecay;
     }
 
-    public void SetChance(int chance)
+    public void Initializes(int chance)
+    {
+        SetChance(chance);
+        Explode();
+    }
+
+    private void SetChance(int chance)
     {
         _chanceDecay = chance;
     }
 
-    public void Explode()
+    private void Explode()
     {
         GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
     }
