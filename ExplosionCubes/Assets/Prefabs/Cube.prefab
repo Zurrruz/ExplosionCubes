@@ -150,7 +150,6 @@ MonoBehaviour:
   _chanceDecay: 100
   _explosionRadius: 5
   _explosionForce: 100
-  _gameManager: {fileID: 0}
 --- !u!114 &6797745937759162520
 MonoBehaviour:
   m_ObjectHideFlags: 0

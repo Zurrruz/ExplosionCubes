@@ -784,6 +784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4532454928290238216, guid: 39227c4077f23e843b1d4afb9121c6c7, type: 3}
+      propertyPath: _explosionForce
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -911,6 +915,8 @@ MonoBehaviour:
   _maxNumberCreated: 6
   _reducingSize: 2
   _reducingChanceDecay: 2
+  _increasingExplosionRadius: 5
+  _increasingExplosionForce: 100
 --- !u!33 &1333357240112819085
 MeshFilter:
   m_ObjectHideFlags: 0

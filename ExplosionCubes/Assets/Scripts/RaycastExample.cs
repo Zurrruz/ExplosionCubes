@@ -22,7 +22,9 @@ public class RaycastExample : MonoBehaviour
                 if (_hit.collider.gameObject.TryGetComponent(out Detonator detonator))
                 {
                     if (detonator.CanAppear())
-                        _objectFactory.GenerateObjects(detonator.transform, detonator.ChanceDecay);
+                        _objectFactory.GenerateObjects(detonator);
+                    else
+                        detonator.PushAway();
 
                     Destroy(detonator.gameObject);
                 }
