@@ -1,58 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Detonator : MonoBehaviour
-{
-    [SerializeField] private int _chanceDecay;
-    [SerializeField] private float _explosionRadius;
-    [SerializeField] private float _explosionForce;
+public class Detonator : MonoBehaviour{
 
-    private int _minChance = 0;
-    private int _maxChance = 100;
-
-    public int ChanceDecay => _chanceDecay;
-    public float ExplosionRadius => _explosionRadius;
-    public float ExplosionForce => _explosionForce;
-
-    public bool CanAppear()
+    public void Explode(Transform epicenter, float explosionForce, float explosionRadius)
     {
-        int chance = Random.Range(_minChance, _maxChance);
-
-        return chance < _chanceDecay;
+        foreach(Rigidbody explodebleObject in GetExplodableObjects(epicenter, explosionRadius))
+            explodebleObject.AddExplosionForce(explosionForce, epicenter.transform.position, explosionRadius);
     }
 
-    public void Initializes(int chance, float explosionRadius, float explosionForce)
+    public void Explode(Specifications specifications, float explosionForce, float explosionRadius)
     {
-        setParameters(chance , explosionRadius, explosionForce);
-        Explode();
+        if(specifications.TryGetComponent(out Rigidbody rigidbody))
+            rigidbody.AddExplosionForce(explosionForce, specifications.transform.position, explosionRadius);
     }
 
-    private void setParameters(int chance, float explosionRadius, float explosionForce)
+    private List<Rigidbody> GetExplodableObjects(Transform epicenter, float explosionRadius)
     {
-        _chanceDecay = chance;
-        _explosionRadius = explosionRadius;
-        _explosionForce = explosionForce;
-    }
-
-    public void PushAway()
-    {
-        foreach(Rigidbody explodebleObject in GetExplodableObjects())
-            explodebleObject.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-    }
-
-    private void Explode()
-    {
-        GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
-    }
-
-    private List<Rigidbody> GetExplodableObjects()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
+        Collider[] hits = Physics.OverlapSphere(epicenter.transform.position, explosionRadius);
 
         List<Rigidbody> cubes = new();
 
-        foreach (Collider hit in hits) 
+        foreach (Collider hit in hits)  
             if(hit.attachedRigidbody != null)
                 cubes.Add(hit.attachedRigidbody);
 

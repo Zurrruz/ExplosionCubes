@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class RaycastExample : MonoBehaviour
 {
-    [SerializeField] ObjectFactory _objectFactory;
-    private Ray _ray;
-    private RaycastHit _hit;
+    [SerializeField] private ObjectFactory _objectFactory;
+    [SerializeField] private Detonator _detonator;
+
+    private int _mouseButton = 0;
+    private Camera _camera;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
 
     private void Update()
     {
@@ -13,20 +20,20 @@ public class RaycastExample : MonoBehaviour
 
     private void Employ()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(_mouseButton))
         {
-            _ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+            Ray ray = _camera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));            
 
-            if (Physics.Raycast(_ray, out _hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                if (_hit.collider.gameObject.TryGetComponent(out Detonator detonator))
+                if (hit.collider.gameObject.TryGetComponent(out Specifications specifications))
                 {
-                    if (detonator.CanAppear())
-                        _objectFactory.GenerateObjects(detonator);
+                    if (specifications.CanAppear())
+                        _objectFactory.GenerateObjects(specifications);
                     else
-                        detonator.PushAway();
+                        _detonator.Explode(specifications.transform , specifications.ExplosionForce, specifications.ExplosionRadius);
 
-                    Destroy(detonator.gameObject);
+                    Destroy(specifications.gameObject);
                 }
             }
         }

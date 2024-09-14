@@ -732,6 +732,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 660204290}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1622527582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622527584}
+  - component: {fileID: 1622527583}
+  m_Layer: 0
+  m_Name: Detonator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1622527583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622527582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9fb36b68b98ea47ae2c5739093b034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1622527584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622527582}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.85587394, y: 6.5502095, z: -5.7129483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2054848388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -783,10 +827,6 @@ PrefabInstance:
     - target: {fileID: 1322959894228525934, guid: 39227c4077f23e843b1d4afb9121c6c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532454928290238216, guid: 39227c4077f23e843b1d4afb9121c6c7, type: 3}
-      propertyPath: _explosionForce
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -910,13 +950,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eeff4051e455ad4c9120c679dca5a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cube: {fileID: 4532454928290238216, guid: 39227c4077f23e843b1d4afb9121c6c7, type: 3}
+  _cube: {fileID: 1621383932312132246, guid: 39227c4077f23e843b1d4afb9121c6c7, type: 3}
+  _detonator: {fileID: 1622527583}
   _minNumberCreated: 2
   _maxNumberCreated: 6
   _reducingSize: 2
   _reducingChanceDecay: 2
   _increasingExplosionRadius: 5
-  _increasingExplosionForce: 100
+  _increasingExplosionForce: 200
 --- !u!33 &1333357240112819085
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -970,6 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectFactory: {fileID: 409941934568840957}
+  _detonator: {fileID: 1622527583}
 --- !u!64 &4221418541211223571
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1076,6 +1118,7 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 5627595328182081570}
+  - {fileID: 1622527584}
   - {fileID: 3128899545628937030}
   - {fileID: 660204290}
   - {fileID: 2054848388}
